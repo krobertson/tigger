@@ -1,41 +1,20 @@
-# Merb::Router is the request routing mapper for the merb framework.
-#
-# You can route a specific URL to a controller / action pair:
-#
-#   match("/contact").
-#     to(:controller => "info", :action => "contact")
-#
-# You can define placeholder parts of the url with the :symbol notation. These
-# placeholders will be available in the params hash of your controllers. For example:
-#
-#   match("/books/:book_id/:action").
-#     to(:controller => "books")
-#   
-# Or, use placeholders in the "to" results for more complicated routing, e.g.:
-#
-#   match("/admin/:module/:controller/:action/:id").
-#     to(:controller => ":module/:controller")
-#
-# You can specify conditions on the placeholder by passing a hash as the second
-# argument of "match"
-#
-#   match("/registration/:course_name", :course_name => /^[a-z]{3,5}-\d{5}$/).
-#     to(:controller => "registration")
-#
-# You can also use regular expressions, deferred routes, and many other options.
-# See merb/specs/merb/router.rb for a fairly complete usage sample.
+REPO_PATH = /[A-Za-z0-9\/\._\-]*/
 
 Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
-  # RESTful routes
-  # resources :posts
+  # Project routes
+  match('/:repo').to(:controller => 'browser', :action => 'index').name(:repo)
+  match('/:repo/diff/:old_revision/:revision/:repo_path', :repo_path => REPO_PATH).to(:controller => 'browser', :action => 'diff').name(:diff)
+  match('/:repo/source/:revision').to(:controller => 'browser', :action => 'index').name(:repo_head)
+  match('/:repo/source/:revision/:repo_path', :repo_path => REPO_PATH).to(:controller => 'browser', :action => 'index').name(:repo_path)
+  match('/:repo/download/:revision/:repo_path', :repo_path => REPO_PATH).to(:controller => 'browser', :action => 'download').name(:download)
 
-  # This is the default route for /:controller/:action/:id
-  # This is fine for most cases.  If you're heavily using resource-based
-  # routes, you may want to comment/remove this line to prevent
-  # clients from calling your create or destroy actions with a GET
-  default_routes
+  # Commit routes
+  match('/:user/:repo/commits').to(:controller => 'commits', :action => 'index').name(:commits)
+  match('/:user/:repo/commit/:revision').to(:controller => 'commits', :action => 'show').name(:commit)
+  match('/:user/:repo/commits/:revision').to(:controller => 'commits', :action => 'index').name(:commits_head)
+  match('/:user/:repo/commits/:revision/:repo_path', :repo_path => REPO_PATH).to(:controller => 'commits', :action => 'index').name(:commits_path)
   
-  # Change this for your home page to be available at /
-  # match('/').to(:controller => 'whatever', :action =>'index')
+  # Homepage
+  match('/').to(:controller => 'dashboard', :action => 'index').name(:dashboard)
 end

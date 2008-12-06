@@ -1,1 +1,6 @@
-You're in index of the Dashboard controller.
+<h1>Repositories</h1>
+<ul>
+	<% @repositories.each do |repo| %>
+		<li><%= link_to repo.description, url(:repo, repo.path) %></li>
+	<% end %>
+</ul>
