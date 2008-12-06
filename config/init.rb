@@ -2,7 +2,6 @@
  
 require 'config/dependencies.rb'
  
-use_orm :datamapper
 use_test :rspec
 use_template_engine :erb
  
