@@ -1,0 +1,21 @@
+<%= commit_partial(@commit) do %>
+	Revision #<%= @commit.revision %> / <%= @commit.changed_at.strftime('%d-%b-%y %H:%M') %>
+<% end =%>
+
+<div class="wrap prev-entries">
+	<h2>Change List</h2>
+</div>
+<div class="box">
+	<% @commit.get_changes.each do |type,path| %>
+		<div class="clear change">
+			<div class="fl revision change <%= type %>"><%= to_prefix(type) %></div>
+			<div class="change_path">
+				<% unless type == :remove %>
+					<a href="<%= url(:repo_path, :repo_path => path) %>"><%= path %></a>
+				<% else %>
+					<%= path %>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+</div>

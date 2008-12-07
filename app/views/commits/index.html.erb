@@ -1,1 +1,5 @@
-You're in index of the Commits controller.
+<% @commits.each do |commit| %>
+	<%= commit_partial(commit) do %>
+		<a href="<%=url(:commit, :revision => commit.revision) %>">Revision #<%= commit.revision %> / <%= commit.changed_at.strftime('%d-%b-%y %H:%M') %></a>
+	<% end =%>
+<% end %>

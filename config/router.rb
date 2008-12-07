@@ -10,10 +10,10 @@ Merb::Router.prepare do
   match('/:repo/download/:revision/:repo_path', :repo_path => REPO_PATH).to(:controller => 'browser', :action => 'download').name(:download)
 
   # Commit routes
-  match('/:user/:repo/commits').to(:controller => 'commits', :action => 'index').name(:commits)
-  match('/:user/:repo/commit/:revision').to(:controller => 'commits', :action => 'show').name(:commit)
-  match('/:user/:repo/commits/:revision').to(:controller => 'commits', :action => 'index').name(:commits_head)
-  match('/:user/:repo/commits/:revision/:repo_path', :repo_path => REPO_PATH).to(:controller => 'commits', :action => 'index').name(:commits_path)
+  match('/:repo/commits').to(:controller => 'commits', :action => 'index').name(:commits)
+  match('/:repo/commit/:revision').to(:controller => 'commits', :action => 'show').name(:commit)
+  match('/:repo/commits/:revision').to(:controller => 'commits', :action => 'index').name(:commits_head)
+  match('/:repo/commits/:revision/:repo_path', :repo_path => REPO_PATH).to(:controller => 'commits', :action => 'index').name(:commits_path)
   
   # Homepage
   match('/').to(:controller => 'dashboard', :action => 'index').name(:dashboard)

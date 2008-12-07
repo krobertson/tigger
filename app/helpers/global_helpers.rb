@@ -1,5 +1,15 @@
 module Merb
   module GlobalHelpers
+    def title(*val)
+      @title ||= []
+      @title << val
+    end
+
+    def get_title
+      @title ||= []
+      "#{@title.reverse.flatten.join(' - ')}"
+    end
+
     def size_text(value)
       if value < 1024
         "#{value}b"
