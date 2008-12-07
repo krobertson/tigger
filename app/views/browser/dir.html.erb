@@ -1,3 +1,7 @@
+<% if @latest_commit %>
+	<%= commit_partial(@latest_commit, 'Latest Commit') %>
+<% end %>
+
 <table border="0" class="filelist">
 	<tr>
 		<th class="f">Name</th>
@@ -16,7 +20,8 @@
 			</td>
 			<td class="s"><%= e.size ? size_text(e.size) : '-' %></td>
 			<td>
-				TODO
+				<div class="fr revision <%= 'latest' if e.commit == @latest_commit %>"><%= e.commit.revision.truncate(7, '') %></div>
+				<%= e.commit.message.truncate(85) %>
 			</td>
 		</tr>
 	<% end %>

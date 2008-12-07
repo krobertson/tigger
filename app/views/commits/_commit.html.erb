@@ -1,0 +1,24 @@
+<div class="wrap">
+	<h2><%=title %></h2>
+</div>
+<div class="box">
+	<table cellspacing="0" cellpadding="0" border="0" class="commit-info">
+		<tr>
+			<td rowspan="2" valign="top">
+				<%= commit.message.gsub(/\n/, '<br/>') %>
+			</td>
+			<td class="commit-info info" valign="top" nowrap="true">
+				<%= gravatar(commit.author_email) %>
+				<div><%= commit.author %></div>
+			</td>
+		</tr>
+		<tr>
+			<td class="commit-info info bottom git" valign="bottom">
+				<ul>
+					<li class="relatize"><%= commit.changed_at.to_time.strftime('%a %b %d %H:%M:%S %Z %Y') %></li>
+					<li>Commit <%= commit.revision %></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>

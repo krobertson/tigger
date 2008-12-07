@@ -9,6 +9,7 @@ class Browser < Application
 
   def dir
     @entities = Entity.get_children(current_repository, current_revision, current_path)
+    @latest_commit = @entities.collect { |e| e.commit }.sort.first
     render :dir
   end
 
