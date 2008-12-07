@@ -22,6 +22,7 @@ class Repository
 
   def self.get(path)
     dir = Merb.root / 'repos' / path + '.git'
+    return nil unless File.exist?(dir)
 
     repo = Repository.new
     repo.full_path = dir

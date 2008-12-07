@@ -1,5 +1,5 @@
 class Entity
-  attr_accessor :name, :path, :file, :size, :revision, :branch, :repository
+  attr_accessor :name, :path, :file, :size, :commit, :branch, :repository
 
   def initialize(repository, branch, path)
     @repository = repository
@@ -18,13 +18,13 @@ class Entity
   def contents
     return @contents if @contents
     return nil unless file?
-    @contents = (@repository.backend.tree(@revision)/path).data
+    @contents = (@repository.backend.tree(@commit.revision)/path).data
   end
 
   def diff(old_revision)
     return @diff if @diff
     return nil unless file?
-    @diff = Grit::Commit.diff(@repository.backend, @revision, old_revision).collect { |d| d.diff if d.a_path == @path || d.b_path == @path } * "\n"
+    @diff = Grit::Commit.diff(@repository.backend, @commit.revision, old_revision).collect { |d| d.diff if d.a_path == @path || d.b_path == @path } * "\n"
   end
 
   def convert(blob, path = nil)
@@ -33,7 +33,7 @@ class Entity
     @path = path == '' ? blob.name : path / blob.name if path
     @file = blob.is_a?(Grit::Blob)
     @size = blob.size if file?
-    @revision = @repository.backend.log(@branch, @path, :max_count => 1).first.id
+    @commit = Commit.convert(@repository.backend.log(@branch, @path, :max_count => 1).first)
   end
 
   def <=>(other)
