@@ -1,12 +1,46 @@
+<% title('Tigger') %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
-  <head>
-    <title>Fresh Merb App</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8" />
-  </head>
-  <body>
-    <%#= message[:notice] %>
-    <%= catch_content :for_layout %>
-  </body>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title><%=get_title %></title>
+		<%= css_include_tag :master %>
+		<%= js_include_tag :jquery, :application %>
+		<%= include_required_js %>
+		<%= include_required_css %>
+	</head>
+	<body>
+		<div id="header">
+			<div id="logo">
+				<h1><a href="<% url(:dashboard) %>"><%= get_title %></a></h1>
+			</div>
+			<% if current_repository %>
+				<div id="menu">
+					<ul>
+						<li class="active"><a href="#">Home</a></li>
+						<li><%= link_to 'Source', url(:repo_head) %></li>
+						<li><%= link_to 'Commits', url(:commits_head) %></li>
+					</ul>
+				</div>
+			<% end %>
+		</div>
+		<hr />
+
+		<div id="wrapper">
+			<div id="page">
+				<div id="content">
+		    	<%= catch_content :for_layout %>
+				</div>
+				<br style="clear: both;" />
+			</div>
+		</div>
+
+		<div id="wrapper2">
+			<p id="legal"> &copy;<%= Time.now.year %>
+				&nbsp;&nbsp;&bull;&nbsp;&nbsp;
+				Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a> &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+				Tigger by <a href="http://definemethod.com/">Define Method</a>
+			</p>
+		</div>
+	</body>
 </html>
