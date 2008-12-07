@@ -1,0 +1,23 @@
+<table border="0" class="filelist">
+	<tr>
+		<th class="f">Name</th>
+		<th class="s">Size</th>
+		<th class="m">Message</th>
+	</tr>
+	<% @entities.each do |e| %>
+		<tr>
+			<td>
+				<% if e.dir? %>
+					<img src="/images/icons/folder.gif" alt="Folder" width="16" height="16" />
+				<% else %>
+					<img src="/images/icons/file.gif" alt="File" width="16" height="16" />
+				<% end %>
+				<a href="<%=url(:repo_path, :repo_path => e.path) %>"><%= e.name %><%= e.dir? ? '/' : ''%></a>
+			</td>
+			<td class="s"><%= e.size ? size_text(e.size) : '-' %></td>
+			<td>
+				TODO
+			</td>
+		</tr>
+	<% end %>
+</table>
