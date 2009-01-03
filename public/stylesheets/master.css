@@ -107,7 +107,7 @@ hr {
 	display: block;
 	float: left;
 	margin-left: 5px;
-	padding: 5px 20px;
+	padding: 10px 20px;
 	background: #FFFFFF;
 	text-decoration: none;
 	text-transform: uppercase;
@@ -365,6 +365,7 @@ hr {
 	clear: both;
 	margin: 0 0 14px;
 	padding: 19px;
+	margin-bottom: 40px;
 	border: 1px solid #fefefe;
 }
 
@@ -486,4 +487,12 @@ td.commit-info.bottom {
 
 .commit-info.info.bottom {
 	font-size: 10px;
+}
+
+.wrap div{
+	float: right;
+}
+.wrap div li {
+	display: inline;
+	padding-left: 15px;
 }

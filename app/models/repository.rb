@@ -5,6 +5,11 @@ class Repository
     @branches ||= backend.heads.collect { |h| h.name }
   end
 
+  def default_branch
+    return 'master' if branches.empty? || branches.include?('master')
+    branches.first
+  end
+
   def backend
     @backend ||= Grit::Repo.new(@full_path)
   end

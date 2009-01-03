@@ -2,6 +2,21 @@
 	<%= commit_partial(@latest_commit, 'Latest Commit') %>
 <% end %>
 
+<div class="wrap prev-entries">
+	<div>
+		<ul>
+			<% if current_repository.branches.size > 1 || current_entity.branch != current_repository.default_branch %>
+				<li>branches: <%= select :browser_branches, collect_branch_options %></li>
+			<% end %>
+			<% if current_path == '' %>
+				<li><a href="<%=url(:commits) %>">history</a></li>
+			<% else %>
+				<li><a href="<%=url(:commits_path) %>">history</a></li>
+			<% end %>
+		</ul>
+	</div>
+	<h2>Source: &nbsp;/ <%= breadcrumb %></h2>
+</div>
 <div class="box">
 <table border="0" class="filelist">
 	<tr>
