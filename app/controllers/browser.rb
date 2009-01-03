@@ -14,5 +14,11 @@ class Browser < Application
   end
 
   def file
+    render :file
+  end
+
+  def download
+    return redirect(url(:repo_path)) unless current_entity.file?
+    send_data(current_entity.contents, :filename => current_entity.name)
   end
 end

@@ -1,0 +1,15 @@
+<% if current_entity.commit %>
+	<%= commit_partial(current_entity.commit, 'Latest Commit') %>
+<% end %>
+
+<div class="wrap">
+	<div>
+		<ul>
+			<li><a href="<%=url(:download) %>">download</a></li>
+			<li><a href="<%=url(:commits_path) %>">history</a></li>
+	</div>
+	<h2>Source: &nbsp;/ <%= breadcrumb %></h2>
+</div>
+<div class="box">
+	<pre><%= current_entity.contents %></pre>
+</div>
